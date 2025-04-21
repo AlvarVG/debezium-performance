@@ -1,0 +1,29 @@
+services:
+
+  prometheus:
+    container_name: prometheus
+    image: quay.io/prometheus/prometheus:${PROMETHEUS_VERSION}
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/config.yaml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana-oss:${GRAFANA_VERSION}
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge

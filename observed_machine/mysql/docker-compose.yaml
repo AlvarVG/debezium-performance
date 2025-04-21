@@ -1,0 +1,64 @@
+include:
+  - ../common/cadvisor/cadvisor_service.compose.yaml
+  - ../common/kafka/kafka_service.compose.yaml
+  - ../common/zookeeper/zookeeper_service.compose.yaml
+
+services:
+
+  mysql:
+    container_name: mysql
+    image: quay.io/aviana/mysql_perf_example:${DEBEZIUM_VERSION}
+    environment:
+      - MYSQL_ROOT_PASSWORD=debezium
+      - MYSQL_USER=mysqluser 
+      - MYSQL_PASSWORD=mysqlpw
+    ports:
+      - 3306:3306
+    networks:
+      - debezium
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  mysql-exporter:
+    container_name: mysql-exporter
+    image: quay.io/prometheus/mysqld-exporter:${EXPORTER_VERSION}
+    ports:
+      - 7073:9104
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: 
+      - "--config.my-cnf=/etc/my.cnf"
+      - '--collect.global_status'
+      - '--collect.info_schema.processlist'
+      - '--collect.info_schema.innodb_metrics'
+      - '--collect.global_variables'
+      - '--collect.slave_status'
+    volumes:
+      - ./exporter_config/user.cnf:/etc/my.cnf
+    networks:
+      - debezium
+
+  debezium:
+    container_name: debezium
+    image: quay.io/debezium/server:${DEBEZIUM_VERSION}
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    environment:
+      - JMX_EXPORTER_PORT=7074
+    ports:
+      - 8080:8080
+      - 7074:7074
+    volumes:
+      - ./debezium_config/:/debezium/config/
+    networks:
+      - debezium
+
+networks:
+  debezium:
+    driver: bridge

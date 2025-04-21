@@ -1,0 +1,30 @@
+ifndef IMAGE_NAME
+$(error You must set IMAGE_NAME)
+else ifndef IMAGE_VERSION
+$(error You must set IMAGE_VERSION)
+else ifndef IMAGE_PLATFORMS
+$(error You must set IMAGE_PLATFORMS)
+endif
+
+REGISTRY=<YOUR_REGISTRY_REPO_URL>
+
+VERSIONED=$(REGISTRY)/$(IMAGE_NAME):$(IMAGE_VERSION)
+LATEST=$(REGISTRY)/$(IMAGE_NAME):latest
+
+default: build 
+
+build:
+	docker buildx build \
+		--platform $(IMAGE_PLATFORMS) \
+		-t $(VERSIONED) .
+
+dev:
+	docker buildx build \
+		--platform $(IMAGE_PLATFORMS) \
+		-t $(VERSIONED)-dev .
+
+latest:
+	docker buildx build --push \
+		--platform $(IMAGE_PLATFORMS) \
+		-t $(VERSIONED) \
+		-t $(LATEST) .
