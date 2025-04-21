@@ -46,7 +46,7 @@ The complete benchmark is performed over docker containers, no need to install m
 
 ```bash
     ssh *************
-    git clone ********
+    git clone https://github.com/AlvarVG/debezium-performance.git
     cd observed_machine/mysql
     docker-compose up -d
 ```
@@ -66,7 +66,7 @@ The complete benchmark is performed over docker containers, no need to install m
 
 ```bash
     ssh *************
-    git clone ********
+    git clone https://github.com/AlvarVG/debezium-performance.git
     cd observer_machine/monitoring
     vi prometheus/config.yaml # Edit this file with yor addresse/domain
     docker-compose up -d
