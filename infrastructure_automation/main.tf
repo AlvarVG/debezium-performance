@@ -1,5 +1,5 @@
 module "ami" {
-  source = "./modules/ami"
+  source      = "./modules/ami"
   name_filter = "RHEL-9.5*"
 }
 
@@ -41,4 +41,24 @@ resource "aws_instance" "debezium_observed_instance" {
   tags = {
     Name = "debezium_observed_instance"
   }
+}
+
+module "ansible_observed" {
+  source          = "./modules/ansible"
+  playbook        = "./ansible_playbooks/observed_machine.yaml"
+  inventory       = "./generated_files/observed_host.yaml"
+  hosts           = { observed = aws_instance.debezium_observed_instance.public_ip }
+  hosts_ssh_user  = { observed = "ec2-user" }
+  ansible_ssh_key = "./generated_files/${var.generated_key_filename}.pem"
+  vars            = {}
+}
+
+module "ansible_observer" {
+  source          = "./modules/ansible"
+  playbook        = "./ansible_playbooks/observer_machine.yaml"
+  inventory       = "./generated_files/observer_host.yaml"
+  hosts           = { observed = aws_instance.debezium_observer_instance.public_ip }
+  hosts_ssh_user  = { observed = "ec2-user" }
+  ansible_ssh_key = "./generated_files/${var.generated_key_filename}.pem"
+  vars            = {}
 }

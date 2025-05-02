@@ -1,14 +1,14 @@
-output "grafana_url" {
+output "grafana_address" {
   description = "Grafana URL to check performance results"
   value       = "${aws_instance.debezium_observer_instance.public_dns}:3000"
 }
 
-output "grafana_username" {
+output "grafana_creds_user" {
   description = "Grafana username to be used (if not changed)"
   value       = "debezium"
 }
 
-output "grafana_password" {
+output "grafana_creds_pass" {
   description = "Grafana password to be used (if not changed)"
   value       = "debezium"
 }

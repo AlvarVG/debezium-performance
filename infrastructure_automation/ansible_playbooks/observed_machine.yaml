@@ -1,0 +1,9 @@
+- name: Dummy playbook to print a message
+  hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Dummy task
+      import_tasks: tasks/dummy_task.yaml
+      vars:
+        name: OBSERVED
