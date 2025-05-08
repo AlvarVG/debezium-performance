@@ -1,0 +1,32 @@
+- name: Enable required repositories
+  ansible.builtin.command: dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install Docker Engine
+  ansible.builtin.package:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: latest
+
+- name: Add user to docker group
+  become: true
+  ansible.builtin.user:
+    append: yes
+    groups: docker
+    name: "ec2-user"
+
+- name: Restart Docker service
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+    enabled: true
+
+- name: Ensure Docker service is running
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: true

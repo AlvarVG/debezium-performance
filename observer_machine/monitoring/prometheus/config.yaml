@@ -3,10 +3,13 @@ global:
   scrape_timeout: 2s  
 
 scrape_configs:
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['<observed_machine>:7071']
   - job_name: 'database'
     static_configs:
-      - targets: ['<debezium_machine_ip>:7073']
+      - targets: ['<observed_machine>:7073']
   - job_name: 'debezium'
     static_configs:
-      - targets: ['<debezium_machine_ip>:7074']
+      - targets: ['<observed_machine>:7074']
 

@@ -1,4 +1,4 @@
-variable "inventory" { 
+variable "inventory" {
   description = "Inventory YAML file name"
   default     = "./generated_files/hosts.yaml"
 }
@@ -40,4 +40,8 @@ variable "connection_timeout" {
   description = "Initial connection timeout in seconds"
   default     = 120
 }
-
+variable "requirements_file" {
+  description = "Ansible galaxy requirements file"
+  type        = string
+  default     = null
+}

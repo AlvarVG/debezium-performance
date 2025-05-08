@@ -50,15 +50,18 @@ module "ansible_observed" {
   hosts           = { observed = aws_instance.debezium_observed_instance.public_ip }
   hosts_ssh_user  = { observed = "ec2-user" }
   ansible_ssh_key = "./generated_files/${var.generated_key_filename}.pem"
-  vars            = {}
+  requirements_file = "./ansible_playbooks/requirements.yaml"
 }
 
 module "ansible_observer" {
-  source          = "./modules/ansible"
-  playbook        = "./ansible_playbooks/observer_machine.yaml"
-  inventory       = "./generated_files/observer_host.yaml"
-  hosts           = { observed = aws_instance.debezium_observer_instance.public_ip }
-  hosts_ssh_user  = { observed = "ec2-user" }
-  ansible_ssh_key = "./generated_files/${var.generated_key_filename}.pem"
-  vars            = {}
+  source            = "./modules/ansible"
+  playbook          = "./ansible_playbooks/observer_machine.yaml"
+  inventory         = "./generated_files/observer_host.yaml"
+  hosts             = { observer = aws_instance.debezium_observer_instance.public_ip }
+  hosts_ssh_user    = { observer= "ec2-user" }
+  ansible_ssh_key   = "./generated_files/${var.generated_key_filename}.pem"
+  requirements_file = "./ansible_playbooks/requirements.yaml"
+  vars = {
+    observed_instance_address = aws_instance.debezium_observed_instance.public_dns
+  }
 }

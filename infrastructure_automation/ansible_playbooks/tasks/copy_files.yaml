@@ -1,0 +1,6 @@
+- name: Copy directory and all subdirectories
+  ansible.builtin.copy:
+    src: "{{ source_dir }}"
+    dest: "{{ destination_dir }}"
+    mode: '0755'
+    force: true

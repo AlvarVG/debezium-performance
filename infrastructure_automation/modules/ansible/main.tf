@@ -13,6 +13,7 @@ resource "local_file" "inventory" {
       vars : merge(var.vars, {
         ansible_ssh_user : var.ansible_ssh_user
         ansible_ssh_private_key_file : var.ansible_ssh_key
+        ansible_python_interpreter: "/usr/bin/python3.9"
       })
     }
   })
@@ -45,6 +46,9 @@ resource "null_resource" "run_playbook" {
       ANSIBLE_LOAD_CALLBACK_PLUGINS       = "True"
     }
     command = <<-EOF
+        %{if var.requirements_file != null~}
+        ansible-galaxy install -r ${var.requirements_file}
+        %{endif~}
         ansible-playbook -i ${var.inventory} ${var.playbook}
     EOF
   }
