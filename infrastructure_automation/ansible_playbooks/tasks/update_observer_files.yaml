@@ -1,0 +1,8 @@
+- name: Update observed machine placeholder with the actual value
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "<observed_machine>"
+    replace: "{{ observed_machine }}"
+  loop:
+    - "/home/ec2-user/observer_machine/monitoring/prometheus/config.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/mysql/ycsb_config/conf/mysql.properties"

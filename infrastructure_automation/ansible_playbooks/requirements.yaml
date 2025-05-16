@@ -1,0 +1,5 @@
+collections:
+  - name: community.docker
+    version: 4.6.0
+  - name: community.general
+    version: 10.6.0

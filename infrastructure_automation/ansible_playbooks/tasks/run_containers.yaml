@@ -1,0 +1,25 @@
+- name: Stop and remove Docker Compose services
+  community.docker.docker_compose_v2:
+    state: absent
+    project_src: "{{ directory }}"
+    files:
+    - "{{ file }}"
+
+- name: deploy Docker Compose stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ directory }}"
+    files:
+    - "{{ file }}"
+
+- name: Get info on docker host and list containers matching the filter
+  community.docker.docker_host_info:
+    containers: true
+    containers_all: true
+  register: result
+
+- name: Assert that two values are equal
+  ansible.builtin.assert:
+    that:
+      - result.host_info.Containers == result.host_info.ContainersRunning
+    fail_msg: "Not all the containers are in the expected status. Containers: {{ result.host_info.Containers }}. Running: {{ result.host_info.ContainersRunning }}"
+    success_msg: "All the containers are up and running."

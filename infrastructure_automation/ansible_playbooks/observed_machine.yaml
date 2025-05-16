@@ -1,0 +1,19 @@
+- name: Configure the observed machine with all the different services
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Install docker
+      import_tasks: tasks/install_docker.yaml
+
+    - name: Copy observed files  
+      import_tasks: tasks/copy_files.yaml
+      vars:
+        source_dir: "../../../observed_machine"
+        destination_dir: "/home/ec2-user/"
+
+    - name: Spin up zookeeper, kafka, debezium and mysql containers
+      import_tasks: tasks/run_containers.yaml
+      vars:
+        directory: "/home/ec2-user/observed_machine/mysql"        
+        file: "docker-compose.yaml"
