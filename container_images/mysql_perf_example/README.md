@@ -1,4 +1,4 @@
-# TODOMySQL Performance Testing Image (for YCSB)
+# MySQL Performance Testing Image (for YCSB)
 
 This Docker image provides a pre-configured MySQL server environment prepared for performance testing with YCSB (Yahoo! Cloud Serving Benchmark). It is designed to simplify local or CI-based benchmarking workflows by exposing tunable server configurations, automatic initialization options, and compatible dataset handling.
 
