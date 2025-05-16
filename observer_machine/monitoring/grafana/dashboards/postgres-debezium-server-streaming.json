@@ -327,32 +327,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Value"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -375,61 +350,8 @@
         }
       },
       "pluginVersion": "11.6.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"select\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Read Operation Rate",
-          "range": true,
-          "refId": "ReadRate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"insert\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Insert Operation Rate",
-          "range": true,
-          "refId": "InsertRate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"update\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Update Operation Rate",
-          "range": true,
-          "refId": "UpdateRate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"delete\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Delete Operation Rate",
-          "range": true,
-          "refId": "DeleteRate"
-        }
-      ],
-      "title": "MySQL throughput (msg/s)",
+      "targets": [],
+      "title": "PostgreSQL throughput (msg/s)",
       "type": "timeseries"
     },
     {
@@ -591,32 +513,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Value"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -646,15 +543,28 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(mysql_global_status_slow_queries{job=\"mysql\"}[$__rate_interval])",
+          "expr": "rate(pg_stat_bgwriter_checkpoints_req_total{job=\"postgresql\"}[$__interval]) / (rate(pg_stat_bgwriter_checkpoints_req_total{job=\"postgresql\"}[$__interval]) + rate(pg_stat_bgwriter_checkpoints_timed_total{job=\"postgresql\"}[$__interval])) * 100",
           "hide": false,
           "instant": false,
-          "legendFormat": "Slow Queries Rate",
+          "legendFormat": "Cache hit rate",
           "range": true,
-          "refId": "SlowQueries"
+          "refId": "Cache hit rate"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "avg(rate(pg_stat_activity_max_tx_duration{job=\"postgresql\",state=\"active\", datname=\"inventory\",}[$__interval]))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Latency",
+          "range": true,
+          "refId": "Latency"
         }
       ],
-      "title": "MySQL bottlenecks",
+      "title": "PostgreSQL bottlenecks",
       "type": "timeseries"
     },
     {
@@ -999,8 +909,8 @@
   "tags": [
     "debezium-server",
     "streaming",
-    "mysql",
-    "containerized"
+    "containerized",
+    "postgresql"
   ],
   "templating": {
     "list": []
@@ -1011,8 +921,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "MySQL Debezium Server Streaming",
-  "uid": "eeiw945zcjvuoe",
-  "version": 3,
+  "title": "PostgreSQL Debezium Server Streaming",
+  "uid": "asdf2134",
+  "version": 4,
   "weekStart": "monday"
 }

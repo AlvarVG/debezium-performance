@@ -20,4 +20,5 @@ variable "database_to_deploy" {
   type        = string
   description = "Database we are going to deploy"
   default     = "postgresql"
+  # Options: mysql, postgresql or mongodb
 }
