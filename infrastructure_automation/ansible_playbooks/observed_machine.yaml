@@ -15,5 +15,5 @@
     - name: Spin up zookeeper, kafka, debezium and mysql containers
       import_tasks: tasks/run_containers.yaml
       vars:
-        directory: "/home/ec2-user/observed_machine/mysql"        
+        directory: "/home/ec2-user/observed_machine/{{ database_type }}"        
         file: "docker-compose.yaml"
