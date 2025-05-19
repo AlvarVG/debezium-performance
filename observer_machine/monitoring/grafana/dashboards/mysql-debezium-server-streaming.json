@@ -999,8 +999,7 @@
   "tags": [
     "debezium-server",
     "streaming",
-    "mysql",
-    "containerized"
+    "mysql"
   ],
   "templating": {
     "list": []
@@ -1013,6 +1012,6 @@
   "timezone": "browser",
   "title": "MySQL Debezium Server Streaming",
   "uid": "eeiw945zcjvuoe",
-  "version": 3,
+  "version": 1,
   "weekStart": "monday"
 }

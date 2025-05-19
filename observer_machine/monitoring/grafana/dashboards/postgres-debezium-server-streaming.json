@@ -909,7 +909,6 @@
   "tags": [
     "debezium-server",
     "streaming",
-    "containerized",
     "postgresql"
   ],
   "templating": {
@@ -923,6 +922,6 @@
   "timezone": "browser",
   "title": "PostgreSQL Debezium Server Streaming",
   "uid": "asdf2134",
-  "version": 4,
+  "version": 1,
   "weekStart": "monday"
 }
