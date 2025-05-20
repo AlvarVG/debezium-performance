@@ -96,8 +96,8 @@ VALUES(default, ST_GeomFromText('POINT(1 1)')),
 
 CREATE USER exporter WITH PASSWORD 'password';
 GRANT CONNECT ON DATABASE inventory TO exporter;
-GRANT USAGE ON SCHEMA public TO exporter;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO exporter;
+GRANT USAGE ON SCHEMA inventory TO exporter;
+GRANT SELECT ON ALL TABLES IN SCHEMA inventory TO exporter;
 
 CREATE TABLE usertable_0(
   YCSB_KEY VARCHAR (255) PRIMARY KEY, FIELD0 TEXT, FIELD1 TEXT,

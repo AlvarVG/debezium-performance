@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 7,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -350,8 +350,42 @@
         }
       },
       "pluginVersion": "11.6.0",
-      "targets": [],
-      "title": "PostgreSQL throughput (msg/s)",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "rate(pg_stat_database_tup_inserted{datname=\"inventory\"}[$__interval])",
+          "legendFormat": "Insert throughput",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "rate(pg_stat_database_tup_updated{datname=\"inventory\"}[$__interval])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Update throughput",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "rate(pg_stat_database_tup_deleted{datname=\"inventory\"}[$__interval])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Delete throughput",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "PostgreSQL throughput (row/s)",
       "type": "timeseries"
     },
     {
@@ -557,7 +591,7 @@
           },
           "editorMode": "code",
           "expr": "avg(rate(pg_stat_activity_max_tx_duration{job=\"postgresql\",state=\"active\", datname=\"inventory\",}[$__interval]))",
-          "hide": false,
+          "hide": true,
           "instant": false,
           "legendFormat": "Latency",
           "range": true,
@@ -921,7 +955,7 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "PostgreSQL Debezium Server Streaming",
-  "uid": "asdf2134",
+  "uid": "98115bf2",
   "version": 1,
   "weekStart": "monday"
 }
