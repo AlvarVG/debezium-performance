@@ -15,6 +15,7 @@ Here we have three main folders:
 * container_images: This folder contains all the docker images used for different purposes: databases, ycsb, etc; all prepared to be run within this benchmarking framework.
 * observed_machine: All the deployment and configurations needed to replicate a production ready environment, from which this framework gets and stores the data.
 * observer_machine: Monitoring (prometheus + grafana) deployment and configuration and YCSB load deployments. 
+* infrastructure_automation: Automates the deployment and configuration of the different machines
 
 ## Architecture Overview
 
@@ -26,54 +27,29 @@ If you want to have a clearer overview of the architecture, you can just take a 
 
 ### Prerequisites
 
-In order to run all the different deployments two different machines needs to be deployed (in order to not affect the resutls):
+With all the deployment automated, only the following points are needed to be installed/configured:
 
-* Observed machine: Where we are going to deploy zookeeper, kafka, debezium and the selected database.
-* Observer machine: Where the monitoring solution and the database load are going to be deployed.
+* An AWS account configured in your machine (with enough permissions to create EC2, security groups and key pairs)
+* Terraform installed in your machine.
+* Ansible and Ansible galaxy installed in your machine (the dependencies will be installed automatically)
 
-The complete benchmark is performed over docker containers, no need to install more dependencies:
+### Spin up the machines
 
-* Docker
-* Docker Compose
+In order to start eveyrthing to work the following steps are needed:
 
-### Setup observed machine
-
-1. SSH into your machine. 
-2. Clone the repository.
-3. Go to the database of your election folder: taking MySQL as example `observed_machine/mysql`.
-4. Spin up all the deploymentsL: run `docker compose up -d`
-5. Wait until all the services are up and running.
+1. Initialize terraform project.
+2. Modify the default variables.tf file or create a .tfvars with your scenario preferences.
+3. Execute the terraform project. 
+4. Connect into the observer machine (command provisioned after the terraform)
+5. Run the load scripts. 
 
 ```bash
+    cd infrastructure_automation
+    terraform init
+    terraform apply (-var-file=”****.tfvars”)
     ssh *************
-    git clone https://github.com/AlvarVG/debezium-performance.git
-    cd observed_machine/mysql
+    cd observer_machine/****
     docker-compose up -d
-```
-
-### Setup observer machine
-
-1. SSH into your machine. 
-2. Clone the repository.
-3. Go to the monitoring folder `observer_machine/monitoring`.
-4. Update the prometheus [configuration file](./observer_machine/monitoring/prometheus/config.yaml) with the address/domain of the observed machine.
-5. Spin up the monitoring services: run `docker compose up -d`
-6. Wait until the services are up and running and you see data flowing in Grafana.
-7. Go to the scenario of your interest: exmaple mysql streaming folder `observer_machine/scenarios/mysql`.
-8. Customize the workload configurations.
-9. Run the load scripts: run `docker compose up -d`
-10. Wait the processes to finish and checkout the results in Grafana.
-
-```bash
-    ssh *************
-    git clone https://github.com/AlvarVG/debezium-performance.git
-    cd observer_machine/monitoring
-    vi prometheus/config.yaml # Edit this file with yor addresse/domain
-    docker-compose up -d
-    cd ../scenarios/mysql
-    vi docker-compose.yaml # Edit this file with yor load and configuration
-    docker-compose up -d
-    # Check out results in Grafana (<machine_ip>:3000)
 ```
 
 ## Benchmark Scenarios

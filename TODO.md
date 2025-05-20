@@ -1,6 +1,6 @@
 # TODO List 
 
-In this document you will find all the different topics i will be working on. In case you want to contribute, Pull Requests are wellcome! 
+In this document you will find all the different topics I will be working on. In case you want to contribute, Pull Requests are wellcome! 
 
 * Add support for MongoDB scenarios.
 * Debezium Snapshotting dashboard.
