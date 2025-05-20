@@ -6,3 +6,4 @@
   loop:
     - "/home/ec2-user/observer_machine/monitoring/prometheus/config.yaml"
     - "/home/ec2-user/observer_machine/scenarios/mysql/ycsb_config/conf/mysql.properties"
+    - "/home/ec2-user/observer_machine/scenarios/postgresql/ycsb_config/conf/postgresql.properties"

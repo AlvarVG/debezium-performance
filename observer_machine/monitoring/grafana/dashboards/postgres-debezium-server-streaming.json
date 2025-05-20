@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 7,
   "links": [],
   "liveNow": true,
   "panels": [
@@ -327,32 +327,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Value"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -377,17 +352,11 @@
       "pluginVersion": "11.6.0",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
           "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"select\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Read Operation Rate",
+          "expr": "rate(pg_stat_database_tup_inserted{datname=\"inventory\"}[$__interval])",
+          "legendFormat": "Insert throughput",
           "range": true,
-          "refId": "ReadRate"
+          "refId": "A"
         },
         {
           "datasource": {
@@ -395,12 +364,12 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"insert\"}[$__rate_interval])",
+          "expr": "rate(pg_stat_database_tup_updated{datname=\"inventory\"}[$__interval])",
           "hide": false,
           "instant": false,
-          "legendFormat": "Insert Operation Rate",
+          "legendFormat": "Update throughput",
           "range": true,
-          "refId": "InsertRate"
+          "refId": "B"
         },
         {
           "datasource": {
@@ -408,28 +377,15 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"update\"}[$__rate_interval])",
+          "expr": "rate(pg_stat_database_tup_deleted{datname=\"inventory\"}[$__interval])",
           "hide": false,
           "instant": false,
-          "legendFormat": "Update Operation Rate",
+          "legendFormat": "Delete throughput",
           "range": true,
-          "refId": "UpdateRate"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "rate(mysql_global_status_commands_total{job=\"mysql\",command=\"delete\"}[$__rate_interval])",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Delete Operation Rate",
-          "range": true,
-          "refId": "DeleteRate"
+          "refId": "C"
         }
       ],
-      "title": "MySQL throughput (msg/s)",
+      "title": "PostgreSQL throughput (row/s)",
       "type": "timeseries"
     },
     {
@@ -591,32 +547,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Value"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -646,15 +577,28 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "rate(mysql_global_status_slow_queries{job=\"mysql\"}[$__rate_interval])",
+          "expr": "rate(pg_stat_bgwriter_checkpoints_req_total{job=\"postgresql\"}[$__interval]) / (rate(pg_stat_bgwriter_checkpoints_req_total{job=\"postgresql\"}[$__interval]) + rate(pg_stat_bgwriter_checkpoints_timed_total{job=\"postgresql\"}[$__interval])) * 100",
           "hide": false,
           "instant": false,
-          "legendFormat": "Slow Queries Rate",
+          "legendFormat": "Cache hit rate",
           "range": true,
-          "refId": "SlowQueries"
+          "refId": "Cache hit rate"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "avg(rate(pg_stat_activity_max_tx_duration{job=\"postgresql\",state=\"active\", datname=\"inventory\",}[$__interval]))",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "Latency",
+          "range": true,
+          "refId": "Latency"
         }
       ],
-      "title": "MySQL bottlenecks",
+      "title": "PostgreSQL bottlenecks",
       "type": "timeseries"
     },
     {
@@ -999,7 +943,7 @@
   "tags": [
     "debezium-server",
     "streaming",
-    "mysql"
+    "postgresql"
   ],
   "templating": {
     "list": []
@@ -1010,8 +954,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "MySQL Debezium Server Streaming",
-  "uid": "eeiw945zcjvuoe",
+  "title": "PostgreSQL Debezium Server Streaming",
+  "uid": "98115bf2",
   "version": 1,
   "weekStart": "monday"
 }

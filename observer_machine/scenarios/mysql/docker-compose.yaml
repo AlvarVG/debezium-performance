@@ -13,5 +13,5 @@ services:
     volumes:
       - ./ycsb_config/conf:/ycsb/conf
       - ./ycsb_config/results:/ycsb/results
-      - ../../workloads:/ycsb/workloads
+      - ../workloads:/ycsb/workloads
 

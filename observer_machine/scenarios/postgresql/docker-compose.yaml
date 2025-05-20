@@ -1,0 +1,17 @@
+services:
+  ycsb:
+    container_name: ycsb
+    image: quay.io/aviana/ycsb_jdbc:1.0.17
+    environment:
+      - WORKLOAD_FILENAME=1t_1kr_05r_05u
+      - CONFIG_FILENAME=postgresql.properties
+      - TABLE_NAME=usertable_0
+      - NUM_PROCESSES=2
+      - TOTAL_RECORDS=1000
+      - MAX_THROUGHPUT=100
+      - DEBUG=false
+    volumes:
+      - ./ycsb_config/conf:/ycsb/conf
+      - ./ycsb_config/results:/ycsb/results
+      - ../workloads:/ycsb/workloads
+

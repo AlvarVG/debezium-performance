@@ -25,7 +25,7 @@ services:
     container_name: mysql-exporter
     image: quay.io/prometheus/mysqld-exporter:${EXPORTER_VERSION}
     ports:
-      - 7073:9104
+      - 7075:9104
     depends_on:
       mysql:
         condition: service_healthy
@@ -50,10 +50,10 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      - JMX_EXPORTER_PORT=7074
+      - JMX_EXPORTER_PORT=7070
     ports:
       - 8080:8080
-      - 7074:7074
+      - 7070:7070
     volumes:
       - ./debezium_config/:/debezium/config/
     networks:

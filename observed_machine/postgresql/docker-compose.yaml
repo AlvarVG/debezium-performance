@@ -1,0 +1,59 @@
+include:
+  - ../common/cadvisor/cadvisor_service.compose.yaml
+  - ../common/kafka/kafka_service.compose.yaml
+  - ../common/zookeeper/zookeeper_service.compose.yaml
+
+services:
+
+  postgres:
+    container_name: postgres
+    image: quay.io/aviana/postgres_perf_example:${DEBEZIUM_VERSION}
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=inventory
+    ports:
+      - "5432:5432"
+    networks:
+      - debezium
+    healthcheck:
+      test: 'pg_isready -U postgres --dbname=inventory'
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:${EXPORTER_VERSION}
+    container_name: postgres-exporter
+    restart: always
+    environment:
+      DATA_SOURCE_NAME: postgresql://exporter:password@postgres:5432/inventory?sslmode=disable
+    ports:
+      - 7076:9187
+    networks:
+      - debezium
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  debezium:
+    container_name: debezium
+    image: quay.io/debezium/server:${DEBEZIUM_VERSION}
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      - JMX_EXPORTER_PORT=7070
+    ports:
+      - 8080:8080
+      - 7070:7070
+    volumes:
+      - ./debezium_config/:/debezium/config/
+    networks:
+      - debezium
+
+networks:
+  debezium:
+    driver: bridge

@@ -51,6 +51,9 @@ module "ansible_observed" {
   hosts_ssh_user  = { observed = "ec2-user" }
   ansible_ssh_key = "./generated_files/${var.generated_key_filename}.pem"
   requirements_file = "./ansible_playbooks/requirements.yaml"
+  vars = {
+    database_type = var.database_to_deploy
+  }
 }
 
 module "ansible_observer" {
