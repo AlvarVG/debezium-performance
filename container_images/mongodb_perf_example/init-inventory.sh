@@ -1,18 +1,35 @@
-mongosh localhost:27017/inventory --eval "
+OPTS=`getopt -o h: --long hostname: -n 'parse-options' -- "$@"`
+if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
+
+echo "$OPTS"
+eval set -- "$OPTS"
+
+while true; do
+case "$1" in
+    -h | --hostname )     HOSTNAME=$2;        shift; shift ;;
+    -- ) shift; break ;;
+    * ) break ;;
+esac
+done
+
+if [ -z "$HOSTNAME" ]; then
+    echo "Error: HOST environment variable is not set or is empty"
+    exit 1
+fi
+
+echo "Using HOSTNAME='$HOSTNAME'"
+
+mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD $HOSTNAME:27017/ --eval "
     rs.initiate({
         _id: 'rs0',
-        members: [ { _id: 0, host: 'localhost:27017' } ]
+        members: [ { _id: 0, host: '${HOSTNAME}:27017' } ]
     });"
 
 echo "Initiated replica set"
 
 sleep 3
 
-mongosh localhost:27017/admin --eval "
-    db.createUser({ user: 'admin', pwd: 'admin', roles: [ { role: 'userAdminAnyDatabase', db: 'admin' } ] });
-"
-
-mongosh -u admin -p admin localhost:27017/admin --eval "
+mongosh -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD $HOSTNAME:27017/admin --eval "
     db.runCommand({
         createRole: 'listDatabases',
         privileges: [
@@ -55,6 +72,6 @@ mongosh -u admin -p admin localhost:27017/admin --eval "
 
 echo "Created users"
 
-mongosh -u debezium -p dbz localhost:27017 --file /usr/local/bin/insert-inventory-data.js
+mongosh -u debezium -p dbz $HOSTNAME:27017 --file /usr/local/bin/insert-inventory-data.js
 
 echo "Inserted example data"
