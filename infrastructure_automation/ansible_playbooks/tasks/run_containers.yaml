@@ -5,7 +5,7 @@
     files:
     - "{{ file }}"
 
-- name: deploy Docker Compose stack
+- name: Deploy Docker Compose stack
   community.docker.docker_compose_v2:
     project_src: "{{ directory }}"
     files:
@@ -17,9 +17,37 @@
     containers_all: true
   register: result
 
-- name: Assert that two values are equal
+- name: Assert that two values are equal (Containers up and running)
+  when:
+    - database_type is not defined
   ansible.builtin.assert:
     that:
       - result.host_info.Containers == result.host_info.ContainersRunning
-    fail_msg: "Not all the containers are in the expected status. Containers: {{ result.host_info.Containers }}. Running: {{ result.host_info.ContainersRunning }}"
-    success_msg: "All the containers are up and running."
+    fail_msg: >- 
+          "Not all the containers are in the expected status: 
+          Containers: {{ result.host_info.Containers }}. 
+          Running: {{ result.host_info.ContainersRunning }}. 
+    success_msg: "All the containers are in the expected status."
+
+- name: Count completed containers (exited 0)
+  when:
+    - database_type is defined
+    - database_type == "mongodb"
+  set_fact:
+    completed_containers_count:  "{{ result.containers 
+              | selectattr('Status', 'search', '^Exited \\(0\\)')
+              | list | length }}"
+
+- name: Assert that two values are equal (Containers completed + running)
+  when:
+    - database_type is defined
+    - database_type == "mongodb"
+  ansible.builtin.assert:
+    that:
+      - result.host_info.Containers == result.host_info.ContainersRunning + (completed_containers_count | int)
+    fail_msg: >- 
+          "Not all the containers are in the expected status: 
+          Containers: {{ result.host_info.Containers }}. 
+          Running: {{ result.host_info.ContainersRunning }}. 
+          Completed: {{ completed_containers_count }}"
+    success_msg: "All the containers are in the expected status."
