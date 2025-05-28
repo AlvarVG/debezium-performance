@@ -12,7 +12,7 @@ ENV WORKLOAD_FILENAME="workloada" \
     NUM_PROCESSES="1" \
     TOTAL_RECORDS="10000" \
     MAX_THROUGHPUT="1000" \
-    ASYNC=true \
+    ASYNC=false \
     DEBUG=false
 
 # Create folders to be used later on
