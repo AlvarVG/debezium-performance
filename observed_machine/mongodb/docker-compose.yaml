@@ -1,0 +1,78 @@
+include:
+  - ../common/cadvisor/cadvisor_service.compose.yaml
+  - ../common/kafka/kafka_service.compose.yaml
+  - ../common/zookeeper/zookeeper_service.compose.yaml
+
+services:
+
+  mongodb:
+    container_name: mongodb
+    hostname: mongodb
+    image: &mongo-img quay.io/aviana/mongodb_perf_example:${DEBEZIUM_VERSION}
+    ports:
+      - 27017:27017
+    environment: &mongo-env
+      MONGODB_USER: debezium
+      MONGODB_PASSWORD: dbz
+      HOSTNAME: mongodb
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    networks:
+      - debezium
+    healthcheck:
+      test: bash -c 'mongosh --quiet --eval "db.adminCommand(\"ping\").ok" localhost:27017 | grep 1'
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  mongodb-init:
+    container_name: mongodb-init
+    image: *mongo-img
+    environment:
+      <<: *mongo-env
+    networks:
+      - debezium
+    entrypoint: /bin/bash
+    command: "/usr/local/bin/init-inventory.sh"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  mongodb-exporter:
+    container_name: mongodb-exporter
+    image: quay.io/aviana/percona_mongodb_exporter:${EXPORTER_VERSION}
+    ports:
+      - 7077:9216    
+    environment:
+      MONGODB_URI: mongodb://exporter:password@mongodb:27017/admin?authSource=admin    
+    command:
+      - "--compatible-mode"
+      - "--collect-all"
+    depends_on:
+      mongodb-init:
+        condition: service_completed_successfully
+    networks:
+      - debezium
+
+  debezium:
+    container_name: debezium
+    image: quay.io/debezium/server:${DEBEZIUM_VERSION}
+    depends_on:
+      kafka:
+        condition: service_healthy
+      mongodb-init:
+        condition: service_completed_successfully
+    environment:
+      - JMX_EXPORTER_PORT=7070
+    ports:
+      - 8080:8080
+      - 7070:7070
+    volumes:
+      - ./debezium_config/:/debezium/config/
+    networks:
+      - debezium
+
+networks:
+  debezium:
+    driver: bridge
