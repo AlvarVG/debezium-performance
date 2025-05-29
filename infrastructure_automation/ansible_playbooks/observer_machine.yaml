@@ -16,9 +16,17 @@
       import_tasks: tasks/update_observer_files.yaml
       vars:
         observed_machine: "{{ observed_instance_address }}"
+        throughput_goal: "{{ desired_throughput }}"
+        workload_name: "{{ workload_to_run }}"
+        num_process: "{{ num_ycsb_process }}"
+        tables_names: "{{ tables_to_use }}"
 
     - name: Spin up monitoring containers
       import_tasks: tasks/run_containers.yaml
       vars:
         directory: "/home/ec2-user/observer_machine/monitoring"
         file: "docker-compose.yaml"
+
+    # WAIT 2 MINUTES
+
+    # LAUNCH LOAD DOCKER COMPOSE

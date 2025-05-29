@@ -66,5 +66,9 @@ module "ansible_observer" {
   requirements_file = "./ansible_playbooks/requirements.yaml"
   vars = {
     observed_instance_address = aws_instance.debezium_observed_instance.public_dns
+    workload_to_run = var.workload_to_run
+    tables_to_use = var.tables_to_use
+    desired_throughput = var.desired_throughput
+    num_ycsb_process = var.num_ycsb_process
   }
 }

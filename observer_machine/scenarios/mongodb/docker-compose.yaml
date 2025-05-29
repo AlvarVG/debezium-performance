@@ -3,12 +3,12 @@ services:
     container_name: ycsb
     image: quay.io/aviana/ycsb_mongodb:1.0.17
     environment:
-      - WORKLOAD_FILENAME=5t_10kr_05i_05u
+      - WORKLOAD_FILENAME=<workload_to_run>
       - CONFIG_FILENAME=mongodb.properties
-      - TABLE_NAME=usertable_0
-      - NUM_PROCESSES=1
-      - TOTAL_RECORDS=1000
-      - MAX_THROUGHPUT=100
+      - TABLE_NAME=<tables_to_use>
+      - NUM_PROCESSES=<num_processes>
+      # - TOTAL_RECORDS=10000000
+      - MAX_THROUGHPUT=<desired_throughput>
       - ASYNC=false
       - DEBUG=false
     volumes:

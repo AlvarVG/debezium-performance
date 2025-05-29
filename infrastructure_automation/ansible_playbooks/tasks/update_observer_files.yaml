@@ -1,4 +1,4 @@
-- name: Update observed machine placeholder with the actual value
+- name: Update observed machine ip/address with the generated value
   ansible.builtin.replace:
     path: "{{ item }}"
     regexp: "<observed_machine>"
@@ -8,3 +8,44 @@
     - "/home/ec2-user/observer_machine/scenarios/mysql/ycsb_config/conf/mysql.properties"
     - "/home/ec2-user/observer_machine/scenarios/mongodb/ycsb_config/conf/mongodb.properties"
     - "/home/ec2-user/observer_machine/scenarios/postgresql/ycsb_config/conf/postgresql.properties"
+
+- name: Update the workload to run
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "<workload_to_run>"
+    replace: "{{ workload_name }}"
+  loop:
+    - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"
+
+- name: Update the tables to run the script against
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "<tables_to_use>"
+    replace: "{{ tables_names }}"
+  loop:
+    - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"
+
+
+- name: Update the desired throughput
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "<desired_throughput>"
+    replace: "{{ throughput_goal }}"
+  loop:
+    - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"
+
+- name: Update the number of processes to run in ycsb
+  ansible.builtin.replace:
+    path: "{{ item }}"
+    regexp: "<num_processes>"
+    replace: "{{ num_process }}"
+  loop:
+    - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
+    - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"
