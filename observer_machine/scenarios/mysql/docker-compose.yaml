@@ -3,12 +3,12 @@ services:
     container_name: ycsb
     image: quay.io/aviana/ycsb_jdbc:1.0.17
     environment:
-      - WORKLOAD_FILENAME=5t_10kr_05i_05u
+      - WORKLOAD_FILENAME=<workload_to_run>
       - CONFIG_FILENAME=mysql.properties
-      - TABLE_NAME=usertable_0,usertable_1,usertable_2,usertable_3,usertable_4,usertable_5,usertable_6,usertable_7,usertable_8,usertable_9
-      - NUM_PROCESSES=5
-      - TOTAL_RECORDS=100000000
-      - MAX_THROUGHPUT=1000
+      - TABLE_NAME=<tables_to_use>
+      - NUM_PROCESSES=<num_processes>
+      # - TOTAL_RECORDS=10000000
+      - MAX_THROUGHPUT=<desired_throughput>
       - DEBUG=false
     volumes:
       - ./ycsb_config/conf:/ycsb/conf

@@ -1,0 +1,28 @@
+## Debezium Community workload example
+
+# Load definition
+threadcount=3
+recordcount=1000000
+operationcount=1000000
+workload=site.ycsb.workloads.CoreWorkload
+
+# Read/update ratio
+insertproportion=0.5
+updateproportion=0.5
+readproportion=0
+scanproportion=0
+
+# Distribution
+requestdistribution=zipfian
+
+# Field configuration
+readallfields=true
+writeallfields=true
+fieldcount=10
+fieldlength=100
+
+# Measurement configuration
+measurementtype=hdrhistogram
+# Use this when issue solved: https://github.com/HdrHistogram/HdrHistogram/issues/175
+# hdrhistogram.percentiles=50,80,95,99
+# hdrhistogram.fileoutput=true
