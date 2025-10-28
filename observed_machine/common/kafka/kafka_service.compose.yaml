@@ -3,12 +3,16 @@ services:
   kafka:
     container_name: kafka
     image: quay.io/debezium/kafka:${DEBEZIUM_VERSION}
-    depends_on:
-      - zookeeper
     environment:
-      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - CLUSTER_ID=oh-sxaDRTcyAr6pFRbXyzA
+      - NODE_ID=1
+      - NODE_ROLE=combined
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_LISTENERS=PLAINTEXT://kafka:9092,CONTROLLER://kafka:9093
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
     ports:
       - 9092:9092
+      - 9093:9093
     networks:
       - debezium
     healthcheck:

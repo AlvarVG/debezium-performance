@@ -1,9 +1,0 @@
-services:
-
-  zookeeper:
-    container_name: zookeeper
-    image: quay.io/debezium/zookeeper:${DEBEZIUM_VERSION}
-    ports:
-      - 2181:2181
-    networks:
-      - debezium

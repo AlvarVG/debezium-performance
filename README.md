@@ -6,7 +6,7 @@ This repository contains tools, configurations, and test cases for evaluating th
 - Latency of change propagation
 - Resource utilization (CPU, memory, network I/O)
 - Scalability under load
-- Performance across different connectors (e.g., MySQL, PostgreSQL, MongoDB)
+- Performance across different connectors (MySQL, PostgreSQL...)
 
 ## Repository Structure
 

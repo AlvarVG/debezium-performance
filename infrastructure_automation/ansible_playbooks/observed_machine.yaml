@@ -12,7 +12,7 @@
         source_dir: "../../../observed_machine"
         destination_dir: "/home/ec2-user/"
 
-    - name: Spin up zookeeper, kafka, debezium and mysql containers
+    - name: Spin up kafka, debezium and database containers
       import_tasks: tasks/run_containers.yaml
       vars:
         directory: "/home/ec2-user/observed_machine/{{ database_type }}"        

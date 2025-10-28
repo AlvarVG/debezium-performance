@@ -15,8 +15,3 @@ scrape_configs:
   - job_name: 'postgresql'
     static_configs:
       - targets: ['<observed_machine>:7076']
-  - job_name: 'mongodb'
-    static_configs:
-      - targets: ['<observed_machine>:7077']
-
-

@@ -1,7 +1,6 @@
 include:
   - ../common/cadvisor/cadvisor_service.compose.yaml
   - ../common/kafka/kafka_service.compose.yaml
-  - ../common/zookeeper/zookeeper_service.compose.yaml
 
 services:
 

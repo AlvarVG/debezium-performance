@@ -4,7 +4,7 @@ This project integrates Apache Kafka into a working docker-compose.yml stack to 
 
 ## Purpose
 
-By including Kafka in the same docker-compose.yml as your supporting services (e.g., ZooKeeper, producers, and consumers), you gain:
+By including Kafka in the same docker-compose.yml as your supporting services, you gain:
 
 * A scalable publish-subscribe messaging platform
 * Reliable message delivery across distributed systems

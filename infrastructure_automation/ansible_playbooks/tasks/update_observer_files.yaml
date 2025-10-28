@@ -6,7 +6,6 @@
   loop:
     - "/home/ec2-user/observer_machine/monitoring/prometheus/config.yaml"
     - "/home/ec2-user/observer_machine/scenarios/mysql/ycsb_config/conf/mysql.properties"
-    - "/home/ec2-user/observer_machine/scenarios/mongodb/ycsb_config/conf/mongodb.properties"
     - "/home/ec2-user/observer_machine/scenarios/postgresql/ycsb_config/conf/postgresql.properties"
 
 - name: Update the workload to run
@@ -16,7 +15,6 @@
     replace: "{{ workload_name }}"
   loop:
     - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
-    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
     - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"
 
 - name: Update the tables to run the script against
@@ -26,7 +24,6 @@
     replace: "{{ tables_names }}"
   loop:
     - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
-    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
     - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"
 
 
@@ -37,7 +34,6 @@
     replace: "{{ throughput_goal }}"
   loop:
     - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
-    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
     - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"
 
 - name: Update the number of processes to run in ycsb
@@ -47,5 +43,4 @@
     replace: "{{ num_process }}"
   loop:
     - "/home/ec2-user/observer_machine/scenarios/mysql/docker-compose.yaml"
-    - "/home/ec2-user/observer_machine/scenarios/mongodb/docker-compose.yaml"
     - "/home/ec2-user/observer_machine/scenarios/postgresql/docker-compose.yaml"

@@ -19,8 +19,8 @@ variable "observer_instance_type" {
 variable "database_to_deploy" {
   type        = string
   description = "Database we are going to deploy"
-  default     = "mongodb"
-  # Options: mysql, postgresql or mongodb
+  default     = "postgresql"
+  # Options: mysql or postgresql
 }
 
 variable "workload_to_run" {
