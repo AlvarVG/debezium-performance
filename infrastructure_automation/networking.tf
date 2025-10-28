@@ -57,14 +57,6 @@ resource "aws_security_group" "debezium_performance_security_group" {
   }
 
   ingress {
-    description = "MongoDB"
-    from_port   = 27017
-    to_port     = 27017
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
     description = "SQL Server"
     from_port   = 1433
     to_port     = 1433
