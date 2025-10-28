@@ -1,12 +1,12 @@
 # MySQL Environment
 
-This repository contains a Docker Compose setup used to orchestrate a Zookeeper, Kafka, MySQL and Debezium. It utilizes a .env file for environment variables and includes several configuration directories to manage service-specific configurations.
+This repository contains a Docker Compose setup used to orchestrate Kafka, MySQL and Debezium. It utilizes a .env file for environment variables and includes several configuration directories to manage service-specific configurations.
 
 ## Structure
 
 * debezium_config/: Stores the debezium configuration and metrics exporter configuration.
 * exporter_config/: Stores the mysql exporter configurations.
-* docker-compose.yml: Spins ups all the services (includes kafka and zookeeper).
+* docker-compose.yml: Spins ups all the services
 * .env: Contains the environmental variables used in the docker compose file
 
 ## Usage

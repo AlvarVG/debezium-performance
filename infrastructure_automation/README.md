@@ -2,7 +2,7 @@
 
 This Terraform project provisions two virtual machines, described bellow, and provision all the software on each of them:
 
-* **Observed Machine**: Machine where we are deploying Debezium and all of its related dependencies (Kafka, Zookeeper, a database, etc.)
+* **Observed Machine**: Machine where we are deploying Debezium and all of its related dependencies (Kafka, a database, etc.)
 * **Observer Machine**: Machine responsible for running all the monitoring software (Prometheus and Grafana) and execute the load against the observed machine.
 
 ## Prerequisites

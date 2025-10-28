@@ -1,6 +1,6 @@
 # Docker Compose Services
 
-This directory contains modular service definitions to be imported into a primary docker-compose.yml stack. Each file defines a standalone containerized service (e.g., Kafka, ZooKeeper, cAdvisor) that can be reused across different environments.
+This directory contains modular service definitions to be imported into a primary docker-compose.yml stack. Each file defines a standalone containerized service (e.g., Kafka, cAdvisor) that can be reused across different environments.
 
 ## Purpose
 
