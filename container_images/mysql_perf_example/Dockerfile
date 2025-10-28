@@ -1,4 +1,4 @@
-FROM mysql/mysql-server:8.0.32
+FROM quay.io/debezium/example-mysql:3.3.1.Final
 
 LABEL maintainer="Debezium Community"
 
