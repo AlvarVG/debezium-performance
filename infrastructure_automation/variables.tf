@@ -7,19 +7,25 @@ variable "generated_key_filename" {
 variable "observed_instance_type" {
   type        = string
   description = "Name of the generated ssh key"
-  default     = "t3.xlarge"
+  default     = "c5a.xlarge"
+}
+
+variable "observed_intance_storage_size" {
+  type        = string
+  description = "Amount of storage used for docker containers"
+  default     = "500"
 }
 
 variable "observer_instance_type" {
   type        = string
   description = "Name of the generated ssh key"
-  default     = "t3.small"
+  default     = "c5a.xlarge"
 }
 
 variable "database_to_deploy" {
   type        = string
   description = "Database we are going to deploy"
-  default     = "postgresql"
+  default     = "mysql"
   # Options: mysql or postgresql
 }
 
