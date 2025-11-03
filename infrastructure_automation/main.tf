@@ -38,6 +38,12 @@ resource "aws_instance" "debezium_observed_instance" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.debezium_performance_security_group.id]
 
+  # Root volume (size as you wish)
+  root_block_device {
+    volume_size           = "${var.observed_intance_storage_size}"
+    delete_on_termination = true
+  }
+
   tags = {
     Name = "debezium_observed_instance"
   }
