@@ -1,9 +1,9 @@
 ## Debezium Community workload example
 
 # Load definition
-threadcount=3
-recordcount=1000000
-operationcount=1000000
+threadcount=<thread_count>
+recordcount=<registries_count>
+operationcount=<registries_count>
 workload=site.ycsb.workloads.CoreWorkload
 
 # Read/update ratio

@@ -75,6 +75,7 @@ module "ansible_observer" {
     workload_to_run = var.workload_to_run
     tables_to_use = var.tables_to_use
     desired_throughput = var.desired_throughput
-    num_ycsb_process = var.num_ycsb_process
+    thread_count = var.thread_count
+    registries_count = var.registries_count
   }
 }

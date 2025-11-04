@@ -18,8 +18,9 @@
         observed_machine: "{{ observed_instance_address }}"
         throughput_goal: "{{ desired_throughput }}"
         workload_name: "{{ workload_to_run }}"
-        num_process: "{{ num_ycsb_process }}"
         tables_names: "{{ tables_to_use }}"
+        num_threads: "{{ thread_count }}"
+        num_registries: "{{ registries_count }}"
 
     - name: Spin up monitoring containers
       import_tasks: tasks/run_containers.yaml
