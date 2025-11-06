@@ -347,6 +347,88 @@
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
+      "description": "Overall messages being produced per second.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Value"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 6,
+        "y": 11
+      },
+      "id": 31,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(rate(debezium_metrics_TotalNumberOfCreateEventsSeen{context=\"streaming\", job=\"debezium\"}[$__rate_interval])[$__range:]) +\navg_over_time(rate(debezium_metrics_TotalNumberOfUpdateEventsSeen{context=\"streaming\", job=\"debezium\"}[$__rate_interval])[$__range:]) +\navg_over_time(rate(debezium_metrics_TotalNumberOfDeleteEventsSeen{context=\"streaming\", job=\"debezium\"}[$__rate_interval])[$__range:])",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Total Number Of Events",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total throughput (msg/s)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
       "description": "Show the memory used by the debezium container. ",
       "fieldConfig": {
         "defaults": {
@@ -406,7 +488,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 19
       },
       "id": 16,
       "options": {
@@ -472,7 +554,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 19
       },
       "id": 23,
       "options": {
@@ -578,7 +660,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 27
       },
       "id": 15,
       "options": {
@@ -644,7 +726,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 27
       },
       "id": 24,
       "options": {
@@ -750,7 +832,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 27
+        "y": 35
       },
       "id": 19,
       "options": {
@@ -829,7 +911,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 27
+        "y": 35
       },
       "id": 25,
       "options": {
@@ -949,7 +1031,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 43
       },
       "id": 20,
       "options": {
@@ -1028,7 +1110,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 43
       },
       "id": 27,
       "options": {
@@ -1168,7 +1250,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 43
+        "y": 51
       },
       "id": 18,
       "options": {
@@ -1285,7 +1367,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 43
+        "y": 51
       },
       "id": 26,
       "options": {
@@ -1358,6 +1440,88 @@
           "legendFormat": "Delete Operation Rate",
           "range": true,
           "refId": "DeleteRate"
+        }
+      ],
+      "title": "MySQL throughput (msg/s)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "description": "MySQL command performed (insert, update, delete)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Value"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 6,
+        "y": 59
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "sum(avg_over_time(rate(mysql_global_status_commands_total{job=\"mysql\",command=~\"delete|update|insert|select\"}[$__rate_interval])[$__range:]))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Total number of events",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "MySQL throughput (msg/s)",
@@ -1451,7 +1615,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 67
       },
       "id": 21,
       "options": {
@@ -1550,7 +1714,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 67
       },
       "id": 29,
       "options": {
@@ -1603,7 +1767,7 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "2025-11-06T10:18:22.000Z",
     "to": "now"
   },
   "timepicker": {},
