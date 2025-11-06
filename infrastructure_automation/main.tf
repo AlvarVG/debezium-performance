@@ -77,5 +77,6 @@ module "ansible_observer" {
     desired_throughput = var.desired_throughput
     thread_count = var.thread_count
     registries_count = var.registries_count
+    database_type = var.database_to_deploy
   }
 }
