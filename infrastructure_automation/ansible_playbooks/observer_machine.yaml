@@ -28,6 +28,12 @@
         directory: "/home/ec2-user/observer_machine/monitoring"
         file: "docker-compose.yaml"
 
-    # WAIT 2 MINUTES
+    - name: Wait for 2 minutes, until everything get ups and running properly
+      ansible.builtin.pause:
+        minutes: 2
 
-    # LAUNCH LOAD DOCKER COMPOSE
+    - name: Spin up YCSB load generator
+      import_tasks: tasks/run_containers.yaml
+      vars:
+        directory: "/home/ec2-user/observer_machine/scenarios/{{ database_type }}"
+        file: "docker-compose.yaml"

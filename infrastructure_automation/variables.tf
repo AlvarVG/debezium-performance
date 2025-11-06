@@ -52,7 +52,7 @@ variable "tables_to_use" {
 variable "thread_count" {
   type        = string
   description = "Number of threads to be used in the YCSB process"
-  default     = "1"
+  default     = "20"
 }
 
 variable "registries_count" {
