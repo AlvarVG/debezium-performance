@@ -16,6 +16,12 @@ variable "observed_intance_storage_size" {
   default     = "500"
 }
 
+variable "observer_intance_storage_size" {
+  type        = string
+  description = "Amount of storage used for docker containers"
+  default     = "200"
+}
+
 variable "observer_instance_type" {
   type        = string
   description = "Name of the generated ssh key"
@@ -39,7 +45,7 @@ variable "workload_to_run" {
 variable "desired_throughput" {
   type        = string
   description = "The troughput goal you will like to achieve"
-  default     = "100"
+  default     = "600"
 }
 
 variable "tables_to_use" {
