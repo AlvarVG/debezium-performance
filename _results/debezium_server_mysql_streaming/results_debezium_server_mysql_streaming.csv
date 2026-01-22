@@ -1,0 +1,30 @@
+DATABASE,TABLES,DISTRIBUTION,TABLE_RECORDS,TABLE_TARGET_OPS,TOTAL_RECORDS,TOTAL_OPS,RESULT,DURATION (H),AVG_CPU (%),AVG_MEM (MB),AVG_NET_IN (MB),AVG_NET_OUT (MB),AVG_DISK_WRITE (MB),AVG_DISK_READ (MB),COMMENTS
+mysql,1,uniform,1.00E+06,100,1.00E+06,100,OK,5.64,0.96,417,172,538,0.866,0.003,
+mysql,1,uniform,1.00E+06,200,1.00E+06,200,OK,2.81,1.75,433,351,1097,0.851,0.007,
+mysql,1,uniform,1.00E+06,300,1.00E+06,300,OK,1.89,2.41,401,493,1554,0.984,0.000,
+mysql,1,uniform,1.00E+06,400,1.00E+06,400,OK,1.41,2.75,240,686,2180,0.996,0.000,
+mysql,1,uniform,1.00E+06,500,1.00E+06,500,OK,1.15,3.13,389,825,2632,0.904,0.000,
+mysql,1,uniform,1.00E+06,600,1.00E+06,600,OK,0.96,3.40,406,995,3170,0.808,0.000,
+mysql,1,uniform,1.00E+06,700,1.00E+06,700,OK,0.82,3.94,425,1178,3768,1.030,0.007,
+mysql,1,uniform,1.00E+06,800,1.00E+06,800,Ok,0.73,3.81,420,1275,4078,0.986,0.000,
+mysql,1,uniform,1.00E+06,900,1.00E+06,900,OK,0.64,4.12,436,1450,4660,0.963,0.000,
+mysql,1,uniform,1.00E+06,1000,1.00E+06,1000,NOK,0.61,4.04,470,1582,5049,0.851,0.052,MySQL cant keep up with the troughput (927 op/s). Debezium performing the same way as the database
+mysql,2,uniform,1.00E+06,300,2.00E+06,600,OK,1.88,2.71,443,975,3141,1.030,0.003,
+mysql,2,uniform,1.00E+06,400,2.00E+06,800,OK,1.41,3.38,408,1284,4159,0.865,0.003,
+mysql,2,uniform,1.00E+06,450,2.00E+06,900,OK,1.26,3.57,424,1485,4862,1.040,0.004,
+mysql,2,uniform,1.00E+06,475,2.00E+06,950,NOK,1.23,3.40,496,1443,4710,1.130,0.004,MySQL cant keep up with the troughput (932 op/s). Debezium performing the same way as the database
+mysql,3,uniform,1.00E+06,275,3.00E+06,825,OK,2.04,3.34,423,1344,4382,1.040,0.002,
+mysql,3,uniform,1.00E+06,300,3.00E+06,900,NOK,1.90,3.43,418,1469,4809,0.982,0.000,MySQL cant keep up with the troughput (895 op/s). Debezium performing the same way as the database
+mysql,4,uniform,1.00E+06,210,4.00E+06,840,OK,2.67,3.12,476,1377,4513,0.982,1.950,
+mysql,4,uniform,1.00E+06,215,4.00E+06,860,OK,2.62,3.31,438,1421,4666,1.070,0.000,
+mysql,4,uniform,1.00E+06,225,4.00E+06,900,NOK,2.57,3.06,457,1414,4645,1.030,0.642,MySQL cant keep up with the troughput (880 op/s). Debezium performing the same way as the database
+mysql,5,uniform,1.00E+06,160,5.00E+06,800,OK,3.49,3.31,437,1275,4176,0.997,0.675,
+mysql,5,uniform,1.00E+06,165,5.00E+06,825,NOK,3.51,3.03,446,1298,4264,1.030,0.000,MySQL cant keep up with the troughput (784 op/s). Debezium performing the same way as the database
+mysql,6,uniform,1.00E+06,135,6.00E+06,810,OK,4.37,2.83,458,1265,4150,1.050,0.567,
+mysql,6,uniform,1.00E+06,140,6.00E+06,840,NOK,4.37,2.83,476,1244,4083,3.770,0.941,MySQL cant keep up with the troughput (828 op/s). Debezium performing the same way as the database
+mysql,7,uniform,1.00E+06,110,7.00E+06,770,OK,6.03,2.86,437,1074,3523,1.110,2.010,
+mysql,7,uniform,1.00E+06,120,7.00E+06,840,NOK,5.51,2.48,484,1176,3868,1.120,1.230,MySQL cant keep up with the troughput (825 op/s). Debezium performing the same way as the database
+mysql,8,uniform,1.00E+06,100,8.00E+06,800,OK,7.18,2.32,467,1031,3389,1.170,2.200,
+mysql,8,uniform,1.00E+06,105,8.00E+06,840,NOK,7.02,2.28,498,1037,3411,1.090,0.33,MySQL cant keep up with the troughput (805 op/s). Debezium performing the same way as the database
+mysql,9,uniform,1.00E+06,85,9.00E+06,765,OK,8.73,2.17,450,952,3125,1.180,0.996,
+mysql,9,uniform,1.00E+06,90,9.00E+06,810,NOK,8.26,2.14,492,976,3215,1.220,1.88,MySQL cant keep up with the troughput (788 op/s). Debezium performing the same way as the database
